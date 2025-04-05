@@ -1,2 +1,3 @@
 Arquivo novo 1
 Alterando arquivo novo 1
+Alterando arquivo novo 1 pelo remoto
