@@ -1,0 +1,50 @@
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+.grid {
+    display: grid;
+    height: 100%;
+    grid-template-areas: "red red blue blue"
+                         "green purple purple purple"
+                         "yellow yellow yellow yellow";
+    
+}
+
+.grid-alt {
+    grid-template-areas: "red red red red"
+                         "green green purple purple"
+                         "green green blue yellow";
+}
+
+
+.grid > div {
+    border-radius: 10px;
+    margin: 0.5em;
+}
+
+div.red {
+    background-color: brown;
+    grid-area: red;
+}
+
+div.blue {
+    background-color: darkblue;
+    grid-area: blue;
+}
+
+div.green {
+    background-color: green;
+    grid-area: green;
+}
+
+div.purple {
+    background-color: purple;
+    grid-area: purple;
+}
+
+div.yellow {
+    background-color: orange;
+    grid-area: yellow;
+}
