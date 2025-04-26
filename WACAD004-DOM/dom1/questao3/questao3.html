@@ -1,0 +1,66 @@
+<body>
+    <h1>Listas</h1>
+  
+    <p id="lista-titulo" name="lista">Minhas listas:</p>
+  
+    <ul class="lista-itens-1">
+      <li id="one" class="hot">item a</li>
+      <li id="two" class="hot">item b</li>
+      <li id="three" class="hot">item c</li>
+      <li id="four">item d</li>
+    </ul>
+  
+    <ul class="lista-itens-2">
+      <li id="one" class="hot">item a</li>
+      <li id="two" class="hot">item b</li>
+      <li id="three" class="hot">item c</li>
+      <li id="four">item d</li>
+    </ul>
+  
+    <ul class="lista-itens-3">
+      <li id="one" class="hot">item a</li>
+      <li id="two" class="hot">item b</li>
+      <li id="three" class="hot">item c</li>
+      <li id="four">item d</li>
+    </ul>
+  
+    <ul class="lista-itens-4">
+      <li id="one" class="hot">item a</li>
+      <li id="two" class="hot">item b</li>
+      <li id="three" class="hot">item c</li>
+      <li id="four">item d</li>
+    </ul>
+    <script>
+        // Imprimir no console todos os items de lista-itens-2, um a um
+        function imprimirListaAll() {
+            const elementos = document.querySelectorAll(".lista-itens-2 li");
+
+            console.log("Todos os elementos da lista-itens-2:");
+
+            elementos.forEach((el, i) => {
+                console.log(`Item nº ${i + 1}:`);
+                console.log(el);
+            })
+        }
+
+        imprimirListaAll();
+        console.log("===================================");
+        // Imprimir no console somente os elementos da lista-itens-2 que possuem a classe 'hot'
+
+        function imprimirListaHot() {
+            const elementos = document.querySelectorAll(".lista-itens-2 li.hot");
+
+            console.log("Somente os elementos da lista-itens-2 que possuem a classe 'hot':");
+
+            elementos.forEach((el, i) => {
+                console.log(`Item nº ${i + 1}:`);
+                console.log(el);
+            })
+        }
+
+        imprimirListaHot();
+        console.log("===================================");
+
+
+    </script>
+  </body>

@@ -1,0 +1,61 @@
+<style>
+    h1 {
+      width: 350px;
+      padding: 20px;
+      background-color: lightblue;
+    }
+    .lista {
+      width: 350px;
+      padding: 20px;
+      color: white;
+      background-color: lightcoral;
+    }
+  </style>
+  
+  <body>
+    <h1>Questao 03</h1>
+  
+    <h3 id="lista-titulo">Meus itens:</h3>
+  
+    <ul id="lista-itens">
+      <li id="one" class="hot">item a</li>
+      <li id="two" class="hot">item b</li>
+      <li id="three" class="hot">item c</li>
+      <li id="four">item d</li>
+    </ul>
+    <script>
+        // Alterar o background-color do h1 para 'blue'
+        function changeBackgroundColor() {
+            const elemento = document.querySelector("h1");
+            elemento.style.setProperty("background-color", "blue");
+        }
+
+        changeBackgroundColor();
+
+        /* ------------------------------------------- */
+
+        // Adicionando a classe 'lista' ao h3
+        function addClassLista() {
+            const elemento = document.querySelector("h3");
+
+            elemento.classList.add('lista');
+        }
+
+        addClassLista();
+
+        /* ------------------------------------------- */
+
+        // Adicionando estilo negrito aos textos dos itens da lista-itens que contenham a classe hot
+        function addBoldStyle() {
+            const elemento = document.querySelectorAll("ul#lista-itens li.hot");
+
+            elemento.forEach((el) => {
+                el.style.setProperty("font-weight", "bold");
+            })
+        }
+
+        addBoldStyle();
+
+
+    </script>
+  </body>
