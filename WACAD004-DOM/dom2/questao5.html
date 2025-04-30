@@ -1,0 +1,62 @@
+<body>
+    <h1>To-do</h1>
+  
+    <div>
+      <p id="lista-titulo" name="lista">Lista de atividades:</p>
+    </div>
+  
+    <div>
+      <input placeholder="Digite aqui o item" />
+      <button>Adicionar</button>
+    </div>
+  
+    <ul id="lista-itens">
+      <li>item a</li>
+    </ul>
+  
+    <div>
+      <button>Remover último item</button>
+    </div>
+    <script>
+        const lista_atividades = document.querySelector("#lista-itens");
+
+        const input_atividade = document.querySelector("div > input");
+
+        const add_button = document.querySelector("div > input ~ button");
+
+        const remove_last_button = document.querySelector("div > button:only-child");
+
+        function handle_add_item() {
+            const atividade_desc = input_atividade.value
+
+            if(!atividade_desc) {
+                alert("Tarefa não pode ser vazia!");
+                return;
+            }
+
+            const nova_atividade = document.createElement("li");
+            const atividade_text = document.createTextNode(atividade_desc);
+
+            nova_atividade.appendChild(atividade_text);
+            lista_atividades.appendChild(nova_atividade);
+
+            input_atividade.value = "";
+        }
+
+        function handle_remove_last_item() {
+            const atividades_list = lista_atividades.children;
+
+            const len_ativ = atividades_list.length
+
+            if(len_ativ) {
+                lista_atividades.removeChild(atividades_list[len_ativ - 1])
+            } else {
+                alert("Deve haver ao menos um item!");
+            }
+        }
+
+        add_button.addEventListener("click", handle_add_item);
+        remove_last_button.addEventListener("click", handle_remove_last_item)
+
+    </script>
+</body>
