@@ -1,0 +1,29 @@
+<body>
+    <h1>Lista</h1>
+  
+    <div>
+      <p id="lista-titulo" name="lista">Meus itens:</p>
+    </div>
+  
+    <ul id="lista-itens-1">
+      <li id="one" class="hot">item a</li>
+      <li id="two" class="hot">item b</li>
+      <li id="three" class="hot">item c</li>
+      <li id="four">item d</li>
+    </ul>
+    <script>
+        
+        const elemento = document.querySelector("#lista-titulo");
+
+        // Alterando texto do título
+        elemento.firstChild.nodeValue = "Nova Lista de Itens:";
+
+        /*************************************************************/
+
+        const lista_two = document.querySelector("#two");
+
+        // Alterando texto do item 'two' da lista
+        lista_two.textContent = "Item B Atualizado";
+
+    </script>
+</body>
