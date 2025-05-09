@@ -26,6 +26,6 @@ const server = http.createServer((req, res) => {
     res.end();
 });
 
-server.listen(PORT);
-
-console.log(`Ouvindo na porta: http://localhost:${PORT}/`);
+server.listen(PORT, () => {
+    console.log(`Ouvindo na porta: http://localhost:${PORT}/`);
+});
