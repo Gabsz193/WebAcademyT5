@@ -1,6 +1,6 @@
 const http = require("http");
 const fs = require("fs");
-require("dotenv").config();
+require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 
 const PORT = process.env.PORT ?? 3000;
 
