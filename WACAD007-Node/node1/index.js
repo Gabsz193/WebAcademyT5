@@ -1,7 +1,8 @@
 const http = require("http");
 const fs = require("fs");
+require("dotenv").config();
 
-const PORT = 3000;
+const PORT = process.env.PORT ?? 3000;
 
 if(process.argv.length != 3) {
     throw new Error("Quantidade de argumentos inválida");
