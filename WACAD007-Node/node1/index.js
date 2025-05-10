@@ -8,7 +8,7 @@ if(process.argv.length != 3) {
     throw new Error("Quantidade de argumentos inválida");
 }
 
-const directory_name = process.argv[2];
+let directory_name = process.argv[2];
 
 let file_names = [];
 
@@ -18,12 +18,52 @@ fs.readdir(directory_name, (err, files) => {
 });
 
 const server = http.createServer((req, res) => {
-    res.writeHead(200, { "content-type": "text/html;charset=utf-8" });
-    file_names.forEach((file) => {
-        res.write(file);
-        res.write("</br>");
-    })
-    res.end();
+    if(req.url === "/favicon.ico") {
+        res.writeHead(404);
+        res.end();
+        return;
+    }
+
+    if(req.url === "/") {
+        fs.readdir(directory_name, (err, files) => {
+            if(err) throw new Error("Ocorreu um erro: " + err.message);
+
+            res.writeHead(200, { "content-type": "text/html;charset=utf-8" });
+            res.write("<a href='/'>Voltar</a><br/>")
+            files.forEach((file) => {
+                res.write(`<a href='${directory_name}/${file}'>${file}</a>`);
+                res.write("</br>");
+            })
+            res.end();
+        });
+    } else {
+        const path = directory_name + req.url
+        fs.stat(path, (err, stats) => {
+            if(err) throw new Error(err);
+            if(stats.isDirectory()) {
+                fs.readdir(path, (err, files) => {
+                    if(err) throw new Error("Ocorreu um erro: " + err.message);
+                    res.write(`<a href='..'>Voltar</a><br/>`);
+                    files.forEach((file) => {
+                        res.write(`<a href='${req.url.endsWith("/") ? req.url : req.url + "/"}${file}'>${file}</a>`);
+                        res.write("</br>");
+                    })
+                    res.end();
+                });
+            } else {
+                fs.readFile(path, (err, content) => {
+                    if(err) throw new Error(err);
+                    res.writeHead(200, { "content-type": "text/html;charset=utf-8" });
+                    res.write(`<a href='.'>Voltar</a><br/>`)
+                    res.write("<pre>");
+                    res.write(content.toString());
+                    res.write("</pre>");
+                    res.end();
+                })
+            }
+        })
+    }
+    
 });
 
 server.listen(PORT, () => {
