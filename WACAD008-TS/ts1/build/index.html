@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script defer src="main.js"></script>
+</head>
+<body class="d-flex vh-100 align-items-center justify-content-center">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title text-center">Todo List</h2>
+            </div>
+            <div class="card-body p-0">
+                <ul id="task-list" class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="d-flex gap-1 align-items-center justify-content-between">
+                            <div class="fw-bold">Passear com os cachorros</div>
+                            <span class="badge text-bg-primary rounded-pill align-self-start">Doing</span>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur quis praesentium nemo quos aspernatur ipsam consequatur? Repudiandae ab maxime deleniti, vero neque repellendus sapiente in nihil cumque dignissimos ad vitae.</p>
+                        <div class="d-flex justify-content-between align-items-end">
+                            <div class="d-block">
+                                <p class="m-0">Data de criação: 10/10/2025</p>
+                                <p class="m-0">Data de conclusão: 20/10/10 10:10</p>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-link">Editar</button>
+                                <button type="button" class="btn btn-link">Excluir</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submit-task">Adicionar nova tarefa</button:>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para inserir e dar update em task -->
+    <div class="modal fade" id="submit-task" tabindex="-1" aria-labelledby="submit-task-label" aria-hidden="true">
+        <form id="submit-task-form" class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="submit-task-label">Adicionar tarefa</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <label for="titulo-input" class="form-label">Título</label>
+                        <input id="titulo-input" class="form-control" type="text" required/>
+                    </div>
+                    <div class="mb-2">
+                        <label for="descricao-input" class="form-label">Descrição</label>
+                        <textarea id="descricao-input" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="mb-2">
+                        <label for="deadline-date-input" class="form-label">Data de Conclusão</label>
+                        <input id="deadline-date-input" class="form-control" type="date" />
+                    </div>
+                    <div class="mb-2">
+                        <label for="deadline-time-input" class="form-label">Hora de Conclusão</label>
+                        <input id="deadline-time-input" class="form-control" type="time" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="submit-button-modal" type="submit" class="btn btn-primary">Submeter</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
