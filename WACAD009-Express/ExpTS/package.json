@@ -6,9 +6,10 @@
 		"start": "nodemon --watch src --ext ts src/index.ts",
 		"build": "tsc",
 		"start:prod": "node build/index.js",
-		"prettier": "prettier . --write",
-		"prettier:check": "prettier . --check",
-		"lint": "eslint src"
+		"format": "prettier src/ --write",
+		"format:check": "prettier src/ --check",
+		"lint": "eslint src/",
+		"lint:fix": "eslint --fix src/"
 	},
 	"keywords": [],
 	"author": "",
