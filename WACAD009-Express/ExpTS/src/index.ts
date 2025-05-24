@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
-import express, { Request, Response } from "express";
+import express from "express";
 import validateEnv from "./utils/validateEnv";
 import { logger } from "./middlewares/logger";
+import router from "./router/router";
 
 dotenv.config();
 validateEnv();
@@ -11,11 +12,9 @@ const app = express();
 
 app.use(logger("simple"));
 
-app.use(logger("complete"));
+// app.use(logger("complete"));
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World");
-});
+app.use(router);
 
 app.listen(PORT, (err: Error | undefined) => {
   if (err) throw new Error(err.message);

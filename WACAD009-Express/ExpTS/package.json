@@ -19,7 +19,8 @@
 		"dotenv": "^16.5.0",
 		"envalid": "^8.0.0",
 		"express": "^5.1.0",
-		"express-handlebars": "^8.0.3"
+		"express-handlebars": "^8.0.3",
+		"lorem-ipsum": "^2.0.8"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.27.0",
