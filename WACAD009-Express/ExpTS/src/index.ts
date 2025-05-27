@@ -13,12 +13,18 @@ validateEnv();
 
 const PORT = process.env["PORT"] ?? 5000;
 const app = express();
+import helpers from "./views/helpers/helpers";
 
 app.use(logger("simple"));
 
 // app.use(logger("complete"));
 
-app.engine("handlebars", engine());
+app.engine(
+  "handlebars",
+  engine({
+    helpers: helpers
+  })
+);
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"));
 
