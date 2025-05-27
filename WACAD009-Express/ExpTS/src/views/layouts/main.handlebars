@@ -1,0 +1,44 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    <title>My App</title>
+  </head>
+  <body
+    style="display: flex; flex-direction: column; min-height: 100vh; gap: 10px"
+  >
+    <header
+      style="flex: 0.2; display: flex; align-items: center; justify-content: center; background-color: dodgerblue; color: white"
+    >
+      Header
+    </header>
+    <div style="display: flex; flex: 1; gap: 10px">
+      <aside
+        style="flex: 0.1; background-color: cornflowerblue; display: flex; align-items: center; justify-content: center;"
+      >
+        Aside Left
+      </aside>
+      <main
+        style="flex: 1; background-color: aquamarine; display: flex; align-items: center; justify-content: center;"
+      >
+        {{{body}}}
+      </main>
+      <aside
+        style="flex: 0.1; text-align: right; background-color: cornflowerblue; display: flex; align-items: center; justify-content: center;"
+      >
+        Aside Right
+      </aside>
+    </div>
+    <footer
+      style="flex: 0.2; display: flex; align-items: center; justify-content: center; background-color: aqua;"
+    >
+      Footer
+    </footer>
+  </body>
+</html>

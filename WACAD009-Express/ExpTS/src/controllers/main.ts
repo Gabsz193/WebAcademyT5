@@ -2,13 +2,12 @@ import { Request, Response } from "express";
 import { Professor, Tecnologia } from "../types/main";
 
 const index = (req: Request, res: Response) => {
-    res.send("Hello World");
-}
+  res.send("Hello World");
+};
 
 const hb1 = (req: Request, res: Response) => {
   res.render("hb1", {
-    mensagem: "Olá, você está aprendendo Express + HBS!",
-    layout: false
+    mensagem: "Olá, você está aprendendo Express + HBS!"
   });
 };
 
@@ -16,8 +15,7 @@ const hb2 = (req: Request, res: Response) => {
   res.render("hb2", {
     poweredByNodejs: true,
     name: "Express",
-    type: "Framework",
-    layout: false
+    type: "Framework"
   });
 };
 
@@ -30,13 +28,12 @@ const hb3 = (req: Request, res: Response) => {
   ];
 
   res.render("hb3", {
-    profes: profes,
-    layout: false
+    profes: profes
   });
 };
 
 const hb4 = (req: Request, res: Response) => {
-  const technologies : Tecnologia[] = [
+  const technologies: Tecnologia[] = [
     { name: "Express", type: "Framework", poweredByNodejs: true },
     { name: "Laravel", type: "Framework", poweredByNodejs: false },
     { name: "React", type: "Library", poweredByNodejs: true },
@@ -47,15 +44,14 @@ const hb4 = (req: Request, res: Response) => {
   ];
 
   res.render("hb4", {
-    technologies,
-    layout: false
+    technologies
   });
 };
 
 export default {
-    index,
-    hb1,
-    hb2,
-    hb3,
-    hb4
-}
+  index,
+  hb1,
+  hb2,
+  hb3,
+  hb4
+};

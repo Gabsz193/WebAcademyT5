@@ -22,6 +22,8 @@ app.use(logger("simple"));
 app.engine(
   "handlebars",
   engine({
+    layoutsDir: path.join(__dirname, "views", "layouts"),
+    defaultLayout: "main",
     helpers: helpers
   })
 );
