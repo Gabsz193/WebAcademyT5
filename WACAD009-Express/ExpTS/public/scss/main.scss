@@ -3,3 +3,7 @@ $title-color: green;
 h1 {
   color: $title-color;
 }
+
+#layout-main {
+  flex: 1;
+}
