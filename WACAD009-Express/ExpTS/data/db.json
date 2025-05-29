@@ -1,16 +1,3 @@
 {
-  "products": [
-    {
-      "id": "0a184d43-f565-4023-bccf-6891ed37ed5d",
-      "name": "13",
-      "price": 1231,
-      "stock": 123
-    },
-    {
-      "id": "0c0a6363-f250-4d00-8073-713e9cb9f959",
-      "name": "214",
-      "price": 123,
-      "stock": 123
-    }
-  ]
+  "products": []
 }
