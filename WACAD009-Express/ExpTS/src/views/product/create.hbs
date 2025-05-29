@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h2>Criar Novo Produto</h2>
+  <form id="createProdutoForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nome do Produto</label>
+      <input type="text" class="form-control" id="name" name="name" required />
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Preço</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        name="price"
+        step="0.01"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="stock" class="form-label">Quantidade em Estoque</label>
+      <input
+        type="number"
+        class="form-control"
+        id="stock"
+        name="stock"
+        required
+      />
+    </div>
+    <div class="d-flex justify-content-between">
+      <a href="/product" class="btn btn-secondary">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Criar Produto</button>
+    </div>
+  </form>
+</div>
+<script src="/js/createProduct.js"></script>

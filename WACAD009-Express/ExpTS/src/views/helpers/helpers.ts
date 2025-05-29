@@ -14,7 +14,12 @@ function listNodeJsTech(technologies: Tecnologia[]): string {
   return `<ul>${list.join("")}</ul>`;
 }
 
+function add1(n: number): number {
+  return n + 1;
+}
+
 export default exports.modules = {
   listProfs,
-  listNodeJsTech
+  listNodeJsTech,
+  add1
 };

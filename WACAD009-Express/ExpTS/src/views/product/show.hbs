@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Detalhes do Produto</h1>
+    <a class="btn btn-dark" href="/product" role="button">
+      <i class="bi bi-arrow-left"></i>
+      Voltar
+    </a>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <table class="table table-striped mb-0">
+        <tbody>
+          <tr>
+            <th style="width: 200px">ID:</th>
+            <td>{{product.id}}</td>
+          </tr>
+          <tr>
+            <th>Nome:</th>
+            <td>{{product.name}}</td>
+          </tr>
+          <tr>
+            <th>Preço:</th>
+            <td>R$ {{product.price}}</td>
+          </tr>
+          <tr>
+            <th>Estoque:</th>
+            <td>{{product.stock}} unidades</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2">
+    <a href="/product/update/{{product.id}}" class="btn btn-primary">
+      <i class="bi bi-pencil-fill"></i>
+      Editar
+    </a>
+    <a href="/product/delete/{{product.id}}" class="btn btn-danger">
+      <i class="bi bi-trash-fill"></i>
+      Excluir
+    </a>
+  </div>
+</div>
