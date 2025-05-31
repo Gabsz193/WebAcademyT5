@@ -1,18 +1,12 @@
-type ID = number;
+export type ID = string;
 
-type TaskStatus = "Todo" | "Doing" | "Done"
+export type TaskStatus = "Todo" | "Doing" | "Done"
 
-interface Usuario {
+export interface Task {
     id: ID;
-    email: string;
-    senha: string;
-};
-
-interface Task {
     titulo: string;
     descricao?: string;
     date_created: Date;
     date_deadline?: Date;
-    usuario_created_id: ID;
     status: TaskStatus;
 };
