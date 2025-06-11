@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estatísticas da Turma</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container my-4">
+    <h1 class="text-center mb-4">Estatísticas da Turma</h1>
+
+    <div class="mb-4 text-end">
+        <button type="button" class="btn btn-secondary" id="popularTurmaBtn">
+            Popular Turma
+        </button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAlunoModal">
+            Adicionar Novo Aluno
+        </button>
+    </div>
+
+
+    <!-- Lista de alunos -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nome e Sobrenome</th>
+                <th>Idade</th>
+                <th>Altura (m)</th>
+                <th>Peso (kg)</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody id="tabelaAlunos">
+            <tr id="semAlunos" class="text-center">
+                <td colspan="6">Nenhum aluno cadastrado.</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td id="totalAlunosEstatisticas">Total: 0</td>
+                <td id="mediaIdadesEstatisticas">Média: 0.00</td>
+                <td id="mediaAlturasEstatisticas">Média: 0.00</td>
+                <td id="mediaPesosEstatisticas">Média: 0.00</td>
+                <td></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- Modal de Edição de Aluno -->
+<div class="modal fade" id="editAlunoModal" tabindex="-1" aria-labelledby="editAlunoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAlunoModalLabel">Editar Aluno</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editAlunoForm">
+                    <input type="hidden" id="editAlunoId">
+                    <div class="mb-3">
+                        <label for="editNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="editNome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editSobrenome" class="form-label">Sobrenome</label>
+                        <input type="text" class="form-control" id="editSobrenome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDtNascimento" class="form-label">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="editDtNascimento" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editAltura" class="form-label">Altura (m)</label>
+                        <input type="number" step="0.01" class="form-control" id="editAltura" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPeso" class="form-label">Peso (kg)</label>
+                        <input type="number" step="0.01" class="form-control" id="editPeso" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para Adicionar Aluno -->
+<div class="modal fade" id="addAlunoModal" tabindex="-1" aria-labelledby="addAlunoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAlunoModalLabel">Adicionar Novo Aluno</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addAlunoForm">
+                    <div class="mb-3">
+                        <label for="addNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="addNome" placeholder="Digite o nome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addSobrenome" class="form-label">Sobrenome</label>
+                        <input type="text" class="form-control" id="addSobrenome" placeholder="Digite o sobrenome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addDtNascimento" class="form-label">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="addDtNascimento" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addAltura" class="form-label">Altura (m)</label>
+                        <input type="number" step="0.01" class="form-control" id="addAltura" placeholder="Ex.: 1.75" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addPeso" class="form-label">Peso (kg)</label>
+                        <input type="number" step="0.01" class="form-control" id="addPeso" placeholder="Ex.: 70.5" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="addAlunoForm">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
