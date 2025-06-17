@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compras - Produtos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container my-4">
+    <h1 class="text-center mb-4">Gerenciamento de Produtos</h1>
+
+    <div class="mb-4 text-end">
+      <a href="./carrinho.html" class="btn btn-primary">Ir para o Carrinho</a>
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProdutoModal">
+        Adicionar Produto
+      </button>
+    </div>
+
+    <!-- Lista de Produtos -->
+    <div class="table-responsive">
+      <table class="table table-striped mt-3">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Modelo</th>
+            <th>Fabricante</th>
+            <th>Valor (R$)</th>
+            <th>Detalhes</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="produtosTable">
+          <tr id="semProdutos">
+            <td colspan="6" class="text-center">Nenhum produto adicionado.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal Adicionar Produto -->
+  <div class="modal fade" id="addProdutoModal" tabindex="-1" aria-labelledby="addProdutoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProdutoModalLabel">Adicionar Produto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addProdutoForm">
+            <div class="mb-3">
+              <label for="produtoTipo" class="form-label">Tipo de Produto</label>
+              <select class="form-select" id="produtoTipo" required>
+                <option value="" selected disabled>Selecione...</option>
+                <option value="tv">TV</option>
+                <option value="celular">Celular</option>
+                <option value="bicicleta">Bicicleta</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="produtoModelo" class="form-label">Modelo</label>
+              <input type="text" class="form-control" id="produtoModelo" placeholder="Digite o modelo" required>
+            </div>
+            <div class="mb-3">
+              <label for="produtoFabricante" class="form-label">Fabricante</label>
+              <input type="text" class="form-control" id="produtoFabricante" placeholder="Digite o fabricante" required>
+            </div>
+            <div id="produtoCamposDinamicos" class="mb-3">
+              <!-- Campos Dinâmicos Baseados no Tipo Selecionado -->
+            </div>
+            <div class="mb-3">
+              <label for="produtoValor" class="form-label">Valor (R$)</label>
+              <input type="number" class="form-control" id="produtoValor" step="0.01" placeholder="0.00" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar Produto</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar Produto -->
+  <div class="modal fade" id="editProdutoModal" tabindex="-1" aria-labelledby="editProdutoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProdutoModalLabel">Editar Produto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProdutoForm">
+            <input type="hidden" id="editProdutoId">
+            <div class="mb-3">
+              <label for="editProdutoModelo" class="form-label">Modelo</label>
+              <input type="text" class="form-control" id="editProdutoModelo" required>
+            </div>
+            <div class="mb-3">
+              <label for="editProdutoFabricante" class="form-label">Fabricante</label>
+              <input type="text" class="form-control" id="editProdutoFabricante" required>
+            </div>
+            <div class="mb-3">
+              <label for="editProdutoValor" class="form-label">Valor (R$)</label>
+              <input type="number" class="form-control" id="editProdutoValor" step="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Script para lidar com campos dinâmicos -->
+  <script>
+    document.getElementById("produtoTipo").addEventListener("change", function () {
+      const tipo = this.value;
+      const camposDinamicos = document.getElementById("produtoCamposDinamicos");
+      camposDinamicos.innerHTML = ""; // Limpa os campos anteriores
+      
+      if (tipo === "tv") {
+        camposDinamicos.innerHTML = `
+          <div class="mb-3">
+            <label for="produtoResolucao" class="form-label">Resolução</label>
+            <input type="text" id="produtoResolucao" class="form-control" placeholder="Ex: 4K" required>
+          </div>
+          <div class="mb-3">
+            <label for="produtoTamanhoPolegadas" class="form-label">Tamanho (Polegadas)</label>
+            <input type="number" id="produtoTamanhoPolegadas" class="form-control" required>
+          </div>
+        `;
+      } else if (tipo === "celular") {
+        camposDinamicos.innerHTML = `
+          <div class="mb-3">
+            <label for="produtoMemoria" class="form-label">Memória</label>
+            <input type="text" id="produtoMemoria" class="form-control" placeholder="Ex: 128GB" required>
+          </div>
+        `;
+      } else if (tipo === "bicicleta") {
+        camposDinamicos.innerHTML = `
+          <div class="mb-3">
+            <label for="produtoTamanhoAro" class="form-label">Tamanho do Aro</label>
+            <input type="number" id="produtoTamanhoAro" class="form-control" required>
+          </div>
+        `;
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
