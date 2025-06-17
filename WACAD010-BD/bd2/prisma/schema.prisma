@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model CATEGORIA {
+  id                Int         @id @default(autoincrement())
+  id_supercategoria Int?        // Pode ser nulo, sem a restrição de "onDelete: NoAction" explícita aqui no model.
+  nome              String      @db.VarChar(50)
+  CATEGORIA         CATEGORIA?  @relation("CATEGORIAToCATEGORIA", fields: [id_supercategoria], references: [id]) // Removida a parte do 'map' para simplicidade.
+  other_CATEGORIA   CATEGORIA[] @relation("CATEGORIAToCATEGORIA")
+  PRODUTOS          PRODUTOS[]
+
+  @@index([id_supercategoria]) // Índice para o campo id_supercategoria
+}
+
+model CLIENTE {
+  cpf              String             @id @db.VarChar(11)
+  nome             String             @db.VarChar(80)
+  sobrenome        String             @db.VarChar(80)
+  email            String             @db.VarChar(50)
+  telefone         String             @db.VarChar(11)
+  dt_nascimento    DateTime           @db.Date
+  CLIENTE_ENDERECO CLIENTE_ENDERECO[]
+  COMPRA           COMPRA[]
+}
+
+model CLIENTE_ENDERECO {
+  id          Int      @id @default(autoincrement())
+  cpf_cliente String   @db.VarChar(11)
+  endereco_id String   @db.VarChar(19)
+  CLIENTE     CLIENTE  @relation(fields: [cpf_cliente], references: [cpf]) // Simplificado o relacionamento.
+  ENDERECO    ENDERECO @relation(fields: [endereco_id], references: [numero_cep]) // Simplificado o relacionamento.
+
+  @@index([cpf_cliente])
+  @@index([endereco_id])
+}
+
+model COMPRA {
+  id                  Int               @id @default(autoincrement())
+  datetime_compra     DateTime?         @default(now()) @db.Timestamp(0)
+  desconto            Decimal           @db.Decimal(10, 2)
+  forma_pagamento     String            @db.VarChar(20)
+  endereco_entrega_id String            @db.VarChar(19)
+  cpf_cliente         String?           @db.VarChar(11)
+  ENDERECO            ENDERECO          @relation(fields: [endereco_entrega_id], references: [numero_cep]) // Simplificado o relacionamento.
+  CLIENTE             CLIENTE?          @relation(fields: [cpf_cliente], references: [cpf]) // Simplificado o relacionamento.
+  COMPRA_PRODUTOS     COMPRA_PRODUTOS[]
+
+  @@index([cpf_cliente])
+  @@index([endereco_entrega_id])
+}
+
+model COMPRA_PRODUTOS {
+  id          Int      @id @default(autoincrement())
+  id_compra   Int
+  id_produtos Int
+  quantidade  Int
+  COMPRA      COMPRA   @relation(fields: [id_compra], references: [id]) // Simplificado o relacionamento.
+  PRODUTOS    PRODUTOS @relation(fields: [id_produtos], references: [id]) // Simplificado o relacionamento.
+
+  @@index([id_compra])
+  @@index([id_produtos])
+}
+
+model ENDERECO {
+  numero_cep       String             @id @db.VarChar(19)
+  numero           String             @db.VarChar(10)
+  cep              String             @db.VarChar(8)
+  bairro           String             @db.VarChar(100)
+  rua              String             @db.VarChar(100)
+  estado           String             @db.VarChar(50)
+  cidade           String             @db.VarChar(50)
+  complemento      String?            @db.VarChar(100)
+  CLIENTE_ENDERECO CLIENTE_ENDERECO[]
+  COMPRA           COMPRA[]
+}
+
+model MODELO {
+  id       Int        @id @default(autoincrement())
+  nome     String     @db.VarChar(100)
+  PRODUTOS PRODUTOS[]
+  SERIE    SERIE[]
+}
+
+model PRODUTOS {
+  id              Int               @id @default(autoincrement())
+  fabricante      String            @db.VarChar(75)
+  preco_base      Decimal           @db.Decimal(10, 2)
+  quantidade      Int               @default(0)
+  id_categoria    Int
+  id_modelo       Int
+  COMPRA_PRODUTOS COMPRA_PRODUTOS[]
+  CATEGORIA       CATEGORIA         @relation(fields: [id_categoria], references: [id]) // Simplificado o relacionamento.
+  MODELO          MODELO            @relation(fields: [id_modelo], references: [id]) // Simplificado o relacionamento.
+
+  @@index([id_categoria])
+  @@index([id_modelo])
+}
+
+model SERIE {
+  numero    Int     @id
+  id_modelo Int?    // Pode ser nulo.
+  MODELO    MODELO? @relation(fields: [id_modelo], references: [id]) // Simplificado o relacionamento.
+
+  @@index([id_modelo])
+}
