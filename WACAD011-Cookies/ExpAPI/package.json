@@ -1,0 +1,33 @@
+{
+  "name": "expapi",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "nodemon --watch src --ext ts src/index.ts",
+    "build": "tsc",
+    "start:prod": "node build/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "API built using Express and TypeScript with support for JSON Server",
+  "dependencies": {
+    "@prisma/client": "^5.10.0",
+    "axios": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "envalid": "^8.0.0",
+    "express": "^5.1.0",
+    "json-server": "^1.0.0-beta.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.21",
+    "nodemon": "^3.1.10",
+    "prisma": "^5.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1"
+  }
+}

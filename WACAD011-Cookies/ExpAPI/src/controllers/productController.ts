@@ -25,7 +25,11 @@ export const productController = {
       res.status(200).json(product);
     } catch (error) {
       console.error(`Error fetching product:`, error);
-      res.status(404).json({ message: 'Product not found' });
+      if (error instanceof Error && error.message.includes('not found')) {
+        res.status(404).json({ message: 'Product not found' });
+      } else {
+        res.status(500).json({ message: 'Server error while fetching product' });
+      }
     }
   },
 
@@ -59,7 +63,11 @@ export const productController = {
       res.status(200).json(updatedProduct);
     } catch (error) {
       console.error('Error updating product:', error);
-      res.status(500).json({ message: 'Error updating product' });
+      if (error instanceof Error && error.message.includes('not found')) {
+        res.status(404).json({ message: 'Product not found' });
+      } else {
+        res.status(500).json({ message: 'Error updating product' });
+      }
     }
   },
 
@@ -75,7 +83,11 @@ export const productController = {
       res.status(204).send();
     } catch (error) {
       console.error('Error deleting product:', error);
-      res.status(500).json({ message: 'Error deleting product' });
+      if (error instanceof Error && error.message.includes('not found')) {
+        res.status(404).json({ message: 'Product not found' });
+      } else {
+        res.status(500).json({ message: 'Error deleting product' });
+      }
     }
   }
 };
