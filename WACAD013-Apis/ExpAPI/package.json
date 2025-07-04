@@ -4,20 +4,31 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon --watch src --ext js,ts,json --exec tsx src/index.ts",
-    "start": "node build/index.js"
+    "dev": "SESSION_SECRET=$(openssl rand -base64 32) NODE_ENV=development nodemon --watch src --ext js,ts,json --exec tsx src/index.ts",
+    "start": "SECRET_KEY=$(openssl rand -base64 32) NODE_ENV=production node build/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.0.1",
+    "envalid": "^8.0.0",
     "express": "^5.1.0",
-    "typescript": "^5.8.3"
+    "express-session": "^1.18.1",
+    "http-status-codes": "^2.3.0",
+    "joi": "^17.13.3",
+    "typescript": "^5.8.3",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.10",
     "tsx": "^4.20.3"
   }

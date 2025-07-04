@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  phpmyadmin-loja:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-loja
+    restart: always
+    environment:
+      PMA_HOST: mysql-loja
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: icomp123
+    ports:
+      - "8080:80"
+
+    networks:
+      network-loja:
+
+  mysql-loja:
+    image: mysql:latest
+    container_name: mysql-loja
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: icomp123
+      MYSQL_DATABASE: loja
+    volumes:
+      - mysql-volume-loja
+    networks:
+      network-loja:
+
+
+volumes:
+  mysql-volume-loja:
+
+networks:
+  network-loja:
