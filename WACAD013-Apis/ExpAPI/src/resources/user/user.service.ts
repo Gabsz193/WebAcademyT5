@@ -1,76 +1,86 @@
-import { v4 as uuidv4 } from 'uuid';
-import bcrypt from 'bcryptjs';
-import { CreateUserDTO, User, UpdateUserDTO } from "./user.types";
+import { PrismaClient } from '@prisma/client';
+import { CreateUserDTO, User, UpdateUserDTO, UserWithoutPassword } from "./user.types";
+import { UserTypes } from '../userType/userType.constants';
+import { encryptPassword } from '../../utils/password.util';
 
-let users: User[] = [];
+const prisma = new PrismaClient();
 
-export const getUsers = (): Promise<User[]> => {
-    return new Promise<User[]>((resolve) => {
-        resolve(users);
+export const getUsers = async (): Promise<UserWithoutPassword[]> => {
+    const users = await prisma.user.findMany({});
+
+    return users.map(user => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...userWithoutPassword } = user;
+        return userWithoutPassword;
     });
 };
 
-export const getUser = (id: string): Promise<User | null> => {
-    return new Promise<User | null>((resolve) => {
-        const user = users.find(u => u.id === id);
-        if (user) {
-            resolve(user);
-        } else resolve(null);
+export const getUser = async (id: string): Promise<UserWithoutPassword | null> => {
+    const user = await prisma.user.findUnique({
+        where: { id }
     });
+
+    if (!user) return null;
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
 };
 
-export const createUser = (user: CreateUserDTO): Promise<User> => {
-    return new Promise<User>((resolve) => {
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(user.password, salt);
+export const createUser = async (user: CreateUserDTO): Promise<UserWithoutPassword> => {
+    const hashedPassword = encryptPassword(user.password);
 
-        const now = new Date();
-        const newUser: User = {
-            id: uuidv4(),
-            ...user,
+    const newUser = await prisma.user.create({
+        data: {
+            name: user.name,
+            email: user.email,
             password: hashedPassword,
-            userTypeId: '1',
-            createdAt: now,
-            updatedAt: now
-        };
-        users.push(newUser);
-
-        const { password, ...userWithoutPassword } = newUser;
-        resolve(userWithoutPassword as User);
-    });
-};
-
-export const updateUser = (id: string, user: UpdateUserDTO): Promise<User | null> => {
-    return new Promise<User | null>((resolve) => {
-        const userIndex = users.findIndex(u => u.id === id);
-        if (userIndex >= 0) {
-            // Se houver uma nova senha, faça o hash dela
-            if (user.password) {
-                const salt = bcrypt.genSaltSync(10);
-                user.password = bcrypt.hashSync(user.password, salt);
-            }
-
-            users[userIndex] = {
-                ...users[userIndex],
-                ...user,
-                updatedAt: new Date()
-            };
-
-            const { password, ...userWithoutPassword } = users[userIndex];
-            resolve(userWithoutPassword as User);
-        } else {
-            resolve(null);
+            userTypeId: UserTypes.CLIENT
         }
     });
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...userWithoutPassword } = newUser;
+    return userWithoutPassword;
 };
 
-export const deleteUser = (id: string): Promise<boolean> => {
-    return new Promise<boolean>((resolve) => {
-        const userIndex = users.findIndex(u => u.id === id);
-        if (userIndex >= 0) {
-            users.splice(userIndex, 1);
-            resolve(true);
-        }
-        resolve(false);
-    });
+export const updateUser = async (id: string, user: UpdateUserDTO): Promise<UserWithoutPassword | null> => {
+    try {
+        // Prepare update data
+        const updateData: any = {};
+
+        if (user.name) updateData.name = user.name;
+        if (user.email) updateData.email = user.email;
+        if (user.password) updateData.password = encryptPassword(user.password);
+
+        const updatedUser = await prisma.user.update({
+            where: { id },
+            data: updateData
+        });
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...userWithoutPassword } = updatedUser;
+        return userWithoutPassword;
+    } catch (error) {
+        // If the record doesn't exist, Prisma will throw an error
+        return null;
+    }
 };
+
+export const deleteUser = async (id: string): Promise<boolean> => {
+    try {
+        await prisma.user.delete({
+            where: { id }
+        });
+        return true;
+    } catch (error) {
+        // If the record doesn't exist, Prisma will throw an error
+        return false;
+    }
+};
+
+export const findUserByEmail = async (email: string): Promise<User | null> => {
+    return await prisma.user.findUnique({
+        where: { email }
+    });
+}

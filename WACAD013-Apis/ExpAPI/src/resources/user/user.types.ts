@@ -4,12 +4,27 @@ export type User = {
     email: string;
     password: string;
     userTypeId: string;
+    userType?: {
+        id: string;
+        label: string;
+    };
     createdAt: Date;
     updatedAt: Date;
 };
 
-export type CreateUserDTO = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
+export type UserWithoutPassword = Omit<User, 'password'>;
+
+export type CreateUserDTO = {
+    name: string;
+    email: string;
+    password: string;
+    userTypeId: string;
+};
 
 export type ReadUserDTO = Pick<User, 'id'>
 
-export type UpdateUserDTO = Partial<Omit<User, 'id' | 'createdAt' | 'updatedAt'>>;
+export type UpdateUserDTO = Partial<{
+    name: string;
+    email: string;
+    password: string;
+}>;

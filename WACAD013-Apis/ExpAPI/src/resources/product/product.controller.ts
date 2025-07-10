@@ -25,7 +25,7 @@ const read = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        const product = await getProduct(parseInt(id));
+        const product = await getProduct(id);
 
         if(product) {
             res.status(StatusCodes.OK).json(product);
@@ -46,7 +46,7 @@ const update = async (req: Request, res: Response) => {
     const productUpdate = req.body as UpdateProductDTO;
 
     try {
-        const updatedProduct = await updateProduct(parseInt(id), productUpdate);
+        const updatedProduct = await updateProduct(id, productUpdate);
 
         if (updatedProduct) {
             res.status(StatusCodes.OK).json({product: updatedProduct});
@@ -62,7 +62,7 @@ const remove = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        const deletedProduct = await deleteProduct(parseInt(id));
+        const deletedProduct = await deleteProduct(id);
         if(deletedProduct) {
             res.status(StatusCodes.OK).json({message: ReasonPhrases.OK});
         } else {

@@ -1,12 +1,20 @@
+import {Decimal} from '@prisma/client/runtime/library';
+
 export type Product = {
-    id: number;
+    id: string;
     name: string;
-    price: number;
-    stock: number;
+    price: Decimal;
+    stockQuantity: number;
+    createdAt: Date;
+    updatedAt: Date;
 };
 
-export type CreateProductDTO = Omit<Product, 'id'>;
+export type CreateProductDTO = {
+    name: string;
+    price: string;
+    stockQuantity: string;
+};
 
 export type ReadProductDTO = Pick<Product, 'id'>
 
-export type UpdateProductDTO = Partial<Omit<Product, 'id'>>;
+export type UpdateProductDTO = Partial<CreateProductDTO>;

@@ -12,7 +12,9 @@ services:
       PMA_PASSWORD: icomp123
     ports:
       - "8080:80"
-
+    depends_on:
+      mysql-loja:
+        condition: service_healthy
     networks:
       network-loja:
 
@@ -26,10 +28,13 @@ services:
       MYSQL_ROOT_PASSWORD: icomp123
       MYSQL_DATABASE: loja
     volumes:
-      - mysql-volume-loja
+      - mysql-volume-loja:/var/lib/mysql
     networks:
       network-loja:
-
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
 volumes:
   mysql-volume-loja:

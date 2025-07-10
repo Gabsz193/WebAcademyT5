@@ -7,11 +7,15 @@
     "dev": "SESSION_SECRET=$(openssl rand -base64 32) NODE_ENV=development nodemon --watch src --ext js,ts,json --exec tsx src/index.ts",
     "start": "SECRET_KEY=$(openssl rand -base64 32) NODE_ENV=production node build/index.js"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@prisma/client": "^6.11.1",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.0.1",
@@ -30,6 +34,8 @@
     "@types/express-session": "^1.18.2",
     "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.10",
+    "prisma": "^6.11.1",
+    "ts-node": "^10.9.2",
     "tsx": "^4.20.3"
   }
 }

@@ -1,3 +1,12 @@
+import {Cart} from "./resources/compra/compra.types";
+
+declare module 'express-session' {
+    interface SessionData {
+        uid: string;
+        cart: Cart
+    }
+}
+
 import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from "cookie-parser";
@@ -25,8 +34,6 @@ app.use(session({
 app.use(cookieParser());
 app.use(express.json());
 app.use(setLangCookie);
-
-
 
 app.use(router);
 

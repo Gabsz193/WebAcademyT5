@@ -1,52 +1,48 @@
+import {PrismaClient} from '@prisma/client';
 import {CreateProductDTO, Product, UpdateProductDTO} from "./product.types";
 
-let products: Product[] = [];
+const prisma = new PrismaClient();
 
-export const getProducts = () : Promise<Product[]> => {
-    return new Promise<Product[]>((resolve) => {
-        resolve(products);
-    })
+export const getProducts = async (): Promise<Product[]> => {
+    return await prisma.product.findMany();
 };
 
-export const getProduct = (id: number) : Promise<Product | null> => {
-    return new Promise<Product | null>((resolve) => {
-        const product = products.find(p => p.id === id);
-        if(product) resolve(product);
-        else resolve(null);
-    })
+export const getProduct = async (id: string): Promise<Product | null> => {
+    return await prisma.product.findUnique({
+        where: {id}
+    });
 }
 
-export const createProduct = (product: CreateProductDTO) : Promise<Product> => {
-    return new Promise<Product>((resolve) => {
-        const newProduct : Product = {
-            id: products.length + 1,
-            ...product
-        };
-        products.push(newProduct);
-        resolve(newProduct);
-    })
-}
-
-export const updateProduct = (id: number, product: UpdateProductDTO) : Promise<Product | null> => {
-    return new Promise<Product | null>((resolve) => {
-        const productIndex = products.findIndex(p => p.id === id);
-        if(productIndex >= 0) {
-            products[productIndex] = {
-                ...products[productIndex],
-                ...product
-            };
-            resolve(products[productIndex]);
-        } else {}
-    })
-}
-
-export const deleteProduct = (id: number) : Promise<boolean> => {
-    return new Promise<boolean>((resolve) => {
-        const productIndex = products.findIndex(p => p.id === id);
-        if(productIndex >= 0) {
-            products.splice(productIndex, 1);
-            resolve(true);
+export const createProduct = async (product: CreateProductDTO): Promise<Product> => {
+    return await prisma.product.create({
+        data: {
+            name: product.name,
+            price: product.price,
+            stockQuantity: parseInt(product.stockQuantity)
         }
-        resolve(false);
-    })
+    });
+}
+
+export const updateProduct = async (id: string, product: UpdateProductDTO): Promise<Product | null> => {
+    try {
+        return await prisma.product.update({
+            where: {id},
+            data: {...product, stockQuantity: product.stockQuantity ? parseInt(product?.stockQuantity) : undefined}
+        });
+    } catch (error) {
+        // If record doesn't exist, Prisma will throw an error
+        return null;
+    }
+}
+
+export const deleteProduct = async (id: string): Promise<boolean> => {
+    try {
+        await prisma.product.delete({
+            where: {id}
+        });
+        return true;
+    } catch (error) {
+        // If record doesn't exist, Prisma will throw an error
+        return false;
+    }
 }

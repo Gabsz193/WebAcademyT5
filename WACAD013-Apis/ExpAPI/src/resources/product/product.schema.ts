@@ -1,13 +1,14 @@
 import Joi from 'joi';
+import {CreateProductDTO, UpdateProductDTO} from "./product.types";
 
-export const createSchema = Joi.object({
+export const createSchema = Joi.object<CreateProductDTO>({
     name: Joi.string().min(3).max(100).required(),
     price: Joi.number().required(),
-    stock: Joi.number().integer().required()
+    stockQuantity: Joi.number().integer().required()
 });
 
-export const updateSchema = Joi.object({
+export const updateSchema = Joi.object<UpdateProductDTO>({
     name: Joi.string().min(3).max(100),
     price: Joi.number(),
-    stock: Joi.number().integer()
+    stockQuantity: Joi.number().integer()
 });
