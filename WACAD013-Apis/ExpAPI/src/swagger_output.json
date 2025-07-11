@@ -1,0 +1,1225 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API da Loja Virtual",
+    "description": "Documentação da Loja Virtual para servir de nota no WebAcademy - Módulo de Restful API's",
+    "version": "1.0.0"
+  },
+  "host": "127.0.0.1:8081",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/v1/product/": {
+      "get": {
+        "tags": [
+          "Produto"
+        ],
+        "summary": "Listar todos os produtos",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Product"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Produto"
+        ],
+        "summary": "Criar um novo produto",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateProductDTO"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product": {
+                  "$ref": "#/definitions/Product"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Mensagem de erro"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/v1/product/{id}": {
+      "get": {
+        "tags": [
+          "Produto"
+        ],
+        "summary": "Buscar um produto pelo ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do produto"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Product"
+            },
+            "description": "OK"
+          },
+          "400": {
+            "schema": {
+              "type": "string",
+              "example": "Bad Request",
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "schema": {
+              "type": "string",
+              "example": "Not Found",
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Produto"
+        ],
+        "summary": "Atualizar um produto",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do produto"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateProductDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product": {
+                  "$ref": "#/definitions/Product"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Mensagem de erro"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "schema": {
+              "type": "string",
+              "example": "Not Found",
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Produto"
+        ],
+        "summary": "Remover um produto",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do produto"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "OK"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Mensagem de erro"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "schema": {
+              "type": "string",
+              "example": "Not Found",
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/user/": {
+      "get": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Listar todos os usuários",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/UserWithoutPassword"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Criar um novo usuário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateUserDTO"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/definitions/UserWithoutPassword"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Mensagem de erro"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/v1/user/{id}": {
+      "get": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Buscar um usuário pelo ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do usuário"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/UserWithoutPassword"
+            },
+            "description": "OK"
+          },
+          "400": {
+            "schema": {
+              "type": "string",
+              "example": "Bad Request",
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "schema": {
+              "type": "string",
+              "example": "Not Found",
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Atualizar um usuário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do usuário"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateUserDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "$ref": "#/definitions/UserWithoutPassword"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Mensagem de erro"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "schema": {
+              "type": "string",
+              "example": "Not Found",
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Remover um usuário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID do usuário"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "OK"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Mensagem de erro"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "schema": {
+              "type": "string",
+              "example": "Not Found",
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/language/change": {
+      "get": {
+        "tags": [
+          "Linguagem"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/v1/cart/": {
+      "get": {
+        "tags": [
+          "Carrinho"
+        ],
+        "summary": "Listar todos os produtos do carrinho",
+        "description": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Cart"
+            },
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Carrinho"
+        ],
+        "summary": "Adicionar produto ao carrinho",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddToCartDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Cart"
+            },
+            "description": "OK"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/v1/cart/{productId}": {
+      "delete": {
+        "tags": [
+          "Carrinho"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Carrinho"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/v1/cart/checkout": {
+      "post": {
+        "tags": [
+          "Carrinho"
+        ],
+        "summary": "Finalizar compra com itens do carrinho",
+        "description": "",
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Compra"
+            },
+            "description": "Created"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Cart is empty"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/v1/cart/history": {
+      "get": {
+        "tags": [
+          "Carrinho"
+        ],
+        "summary": "Obter todas as compras do usuário atual",
+        "description": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Compra"
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v1/cart/history/{id}": {
+      "get": {
+        "tags": [
+          "Carrinho"
+        ],
+        "summary": "Obter compra por ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Purchase ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Compra"
+            },
+            "description": "OK"
+          },
+          "403": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Access denied"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Purchase not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v1/auth/signup": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Cadastrar um novo usuário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SignUpDTO"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "newUsuario": {
+                  "$ref": "#/definitions/User"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Created"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Email informado já está sendo usado"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Mensagem de erro"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Autenticar um usuário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/LoginDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Usuário autenticado com sucesso"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Email e/ou senha incorretos"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Bad Request"
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Mensagem de erro"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Fazer logout de um usuário",
+        "description": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Logout realizado com sucesso"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            },
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "8a2053de-5d92-4c43-97c0-c9b2b0d56703"
+        },
+        "name": {
+          "type": "string",
+          "example": "Modern Soft Sausages"
+        },
+        "price": {
+          "type": "number",
+          "example": 2699
+        },
+        "stockQuantity": {
+          "type": "number",
+          "example": 9
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        }
+      }
+    },
+    "CreateProductDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Modern Soft Sausages"
+        },
+        "price": {
+          "type": "string",
+          "example": "2699.0"
+        },
+        "stockQuantity": {
+          "type": "string",
+          "example": "9"
+        }
+      }
+    },
+    "UpdateProductDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Modern Soft Sausages"
+        },
+        "price": {
+          "type": "string",
+          "example": "2699.0"
+        },
+        "stockQuantity": {
+          "type": "string",
+          "example": "9"
+        }
+      }
+    },
+    "CartItem": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "example": "8a2053de-5d92-4c43-97c0-c9b2b0d56703"
+        },
+        "quantity": {
+          "type": "number",
+          "example": 2
+        },
+        "product": {
+          "$ref": "#/definitions/Product"
+        }
+      }
+    },
+    "Cart": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CartItem"
+      }
+    },
+    "AddToCartDTO": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "example": "8a2053de-5d92-4c43-97c0-c9b2b0d56703"
+        },
+        "quantity": {
+          "type": "number",
+          "example": 2
+        }
+      }
+    },
+    "CompraItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "8a2053de-5d92-4c43-97c0-c9b2b0d56703"
+        },
+        "compraId": {
+          "type": "string",
+          "example": "9b3053de-5d92-4c43-97c0-c9b2b0d56704"
+        },
+        "productId": {
+          "type": "string",
+          "example": "8a2053de-5d92-4c43-97c0-c9b2b0d56703"
+        },
+        "quantity": {
+          "type": "number",
+          "example": 2
+        },
+        "discount": {
+          "type": "number",
+          "example": 10.5
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        },
+        "product": {
+          "$ref": "#/definitions/Product"
+        }
+      }
+    },
+    "Compra": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "9b3053de-5d92-4c43-97c0-c9b2b0d56704"
+        },
+        "userId": {
+          "type": "string",
+          "example": "7c3053de-5d92-4c43-97c0-c9b2b0d56705"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CompraItem"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        }
+      }
+    },
+    "SignUpDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "john.doe@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password123"
+        }
+      }
+    },
+    "LoginDTO": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "john.doe@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password123"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "7c3053de-5d92-4c43-97c0-c9b2b0d56705"
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "john.doe@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "hashedpassword"
+        },
+        "userTypeId": {
+          "type": "string",
+          "example": "6d3053de-5d92-4c43-97c0-c9b2b0d56706"
+        },
+        "userType": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "6d3053de-5d92-4c43-97c0-c9b2b0d56706"
+            },
+            "label": {
+              "type": "string",
+              "example": "Customer"
+            }
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        }
+      }
+    },
+    "UserWithoutPassword": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "7c3053de-5d92-4c43-97c0-c9b2b0d56705"
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "john.doe@example.com"
+        },
+        "userTypeId": {
+          "type": "string",
+          "example": "6d3053de-5d92-4c43-97c0-c9b2b0d56706"
+        },
+        "userType": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "6d3053de-5d92-4c43-97c0-c9b2b0d56706"
+            },
+            "label": {
+              "type": "string",
+              "example": "Customer"
+            }
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2023-11-07T19:27:15.645Z"
+        }
+      }
+    },
+    "CreateUserDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "john.doe@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password123"
+        },
+        "userTypeId": {
+          "type": "string",
+          "example": "6d3053de-5d92-4c43-97c0-c9b2b0d56706"
+        }
+      }
+    },
+    "UpdateUserDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "john.doe@example.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password123"
+        }
+      }
+    }
+  }
+}

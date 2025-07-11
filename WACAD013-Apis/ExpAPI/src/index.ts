@@ -1,12 +1,10 @@
-import {Cart} from "./resources/compra/compra.types";
-
 declare module 'express-session' {
     interface SessionData {
         uid: string;
         cart: Cart
     }
 }
-
+import {Cart} from "./resources/compra/compra.types";
 import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from "cookie-parser";
@@ -15,6 +13,8 @@ import setLangCookie from "./middlewares/setLangCookie";
 import session from "express-session";
 import {v4 as uuidv4} from "uuid";
 import validateEnv from "./utils/validateEnv";
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from "./swagger_output.json";
 
 dotenv.config();
 validateEnv();
@@ -30,11 +30,10 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(setLangCookie);
-
+app.use("/api", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(router);
 
 app.listen(PORT, () => {

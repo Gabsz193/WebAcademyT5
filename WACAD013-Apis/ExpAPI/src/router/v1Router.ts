@@ -7,10 +7,25 @@ import compraRouter from "../resources/compra/compra.router"
 
 const router = Router();
 
-router.use('/product', productRouter);
-router.use('/user', userRouter);
-router.use('/language', languageRouter);
-router.use('/carrinho', compraRouter);
-router.use('/', authRouter);
+router.use('/product',
+  // #swagger.tags = ['Produto']
+  productRouter
+);
+router.use('/user',
+  // #swagger.tags = ['Usuário']
+  userRouter
+);
+router.use('/language',
+  // #swagger.tags = ['Linguagem']
+  languageRouter
+);
+router.use('/cart',
+  // #swagger.tags = ['Carrinho']
+  compraRouter
+);
+router.use('/auth',
+  // #swagger.tags = ['Autenticação']
+  authRouter
+);
 
 export default router;

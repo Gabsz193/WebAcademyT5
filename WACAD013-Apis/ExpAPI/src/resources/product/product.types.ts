@@ -15,6 +15,4 @@ export type CreateProductDTO = {
     stockQuantity: string;
 };
 
-export type ReadProductDTO = Pick<Product, 'id'>
-
 export type UpdateProductDTO = Partial<CreateProductDTO>;

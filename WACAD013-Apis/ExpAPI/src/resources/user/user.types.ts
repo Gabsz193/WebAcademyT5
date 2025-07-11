@@ -21,8 +21,6 @@ export type CreateUserDTO = {
     userTypeId: string;
 };
 
-export type ReadUserDTO = Pick<User, 'id'>
-
 export type UpdateUserDTO = Partial<{
     name: string;
     email: string;
