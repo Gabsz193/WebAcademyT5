@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  mysql_db:
+    image: mysql
+    container_name: mysql_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_DATABASE=wacad_db
+      - MYSQL_USER=wacad
+      - MYSQL_PASSWORD=12345
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - minha-rede
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: pma
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=mysql_db
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=12345
+    networks:
+      - minha-rede
+    depends_on:
+      - mysql_db
+
+networks:
+  minha-rede:
+    driver: bridge
+
+volumes:
+  mysql_data:
