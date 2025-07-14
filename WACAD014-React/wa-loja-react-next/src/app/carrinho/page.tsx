@@ -6,12 +6,16 @@ import {mockItensCarrinho} from "@/mocks/itensCarrinho";
 import {ItemCarrinho} from "@/types/itemCarrinho";
 
 export default function CarrinhoPage() {
-  const [itensCarrinho] = useState<ItemCarrinho[]>(mockItensCarrinho);
+  const [itensCarrinho, setItensCarrinho] = useState<ItemCarrinho[]>(mockItensCarrinho);
+
+  const removerItemDoCarrinho = (id: string) => {
+    setItensCarrinho(itensCarrinho.filter(item => item.id !== id));
+  }
 
   return (
     <main>
       <div className="container p-5">
-        <ListagemCarrinho itensCarrinho={itensCarrinho} />
+        <ListagemCarrinho handleRemoverItem={removerItemDoCarrinho} itensCarrinho={itensCarrinho} />
 
         <ResumoCarrinho
           quantidadeTotal={itensCarrinho.length}
