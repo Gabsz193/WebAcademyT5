@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "ranekapi.origamid.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "favoritos-json-server-ruby.vercel.app"
       }
     ]
   }

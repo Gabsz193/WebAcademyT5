@@ -3,10 +3,8 @@ import React, {useState} from "react";
 import ResumoCarrinho from "@/app/components/ResumoCarrinho";
 import ListagemProdutos from "@/app/components/ListagemProdutos";
 import {Produto} from "@/types/produto";
-import {mockProdutos} from "@/mocks/produtos";
 
 export default function ProdutosPage() {
-  const [produtos] = useState<Produto[]>(mockProdutos)
   const [valorTotal, setValorTotal] = useState<number>(0);
   const [quantidadeTotal, setQuantidadeTotal] = useState<number>(0);
 
@@ -16,13 +14,15 @@ export default function ProdutosPage() {
   }
 
   return (
-    <div className="container p-5">
-      <ResumoCarrinho
-        quantidadeTotal={quantidadeTotal}
-        valorTotal={valorTotal}
-      />
+    <main>
+      <div className="container p-5">
+        <ResumoCarrinho
+          quantidadeTotal={quantidadeTotal}
+          valorTotal={valorTotal}
+        />
 
-      <ListagemProdutos handleAdiciona={adicionarAoCarrinho} produtos={produtos}/>
-    </div>
+        <ListagemProdutos handleAdiciona={adicionarAoCarrinho} />
+      </div>
+    </main>
   );
 }
