@@ -3,7 +3,7 @@ import React from "react";
 import {Produto} from "@/types/produto";
 import {useAddFavorito} from "@/app/hooks/useAddFavorito";
 import {toast} from "react-toastify";
-import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 interface CardProdutoProps {
   produto: Produto;
@@ -14,6 +14,8 @@ export default function CardProduto({
   produto,
   handleAdiciona
 }: CardProdutoProps) {
+  const router = useRouter();
+
   const {isPending, addFavorito} = useAddFavorito(
     () => toast.success("Produto adicionado aos favoritos!"),
     () => toast.error("Algo deu errado")
@@ -41,9 +43,9 @@ export default function CardProduto({
             </button>
           </div>
           <p className="card-text text-secondary">R$ {produto.preco}</p>
-          <Link href={`/produto/${produto.id}`} className="btn btn-light d-block w-100 mb-2" type="button">
+          <button onClick={() => router.push(`/produto/${produto.id}`)} className="btn btn-light d-block w-100 mb-2" type="button">
             Visualizar detalhes
-          </Link>
+          </button>
           <button onClick={() => handleAdiciona(produto)} className="btn btn-dark d-block w-100" type="button">
             Adicionar no carrinho
           </button>

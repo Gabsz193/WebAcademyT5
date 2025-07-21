@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   if(pathname === "/login" || pathname === "/cadastro") return null;
 
@@ -44,7 +45,7 @@ export default function Navbar() {
             </li>
           </ul>
 
-          <button className="btn btn-dark">Sair</button>
+          <button onClick={() => router.push("/login")} className="btn btn-dark">Sair</button>
         </div>
       </div>
     </nav>
