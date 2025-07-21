@@ -1,0 +1,99 @@
+### 1. Create products
+POST http://localhost:5000/v1/products
+Content-Type: application/json
+
+{
+  "name": "Product One",
+  "price": 19.99
+}
+
+###
+
+POST http://localhost:5000/v1/products
+Content-Type: application/json
+
+{
+  "name": "Product Two",
+  "price": 29.99
+}
+
+###
+
+POST http://localhost:5000/v1/products
+Content-Type: application/json
+
+{
+  "name": "Product Three",
+  "price": 39.99
+}
+
+###
+
+POST http://localhost:5000/v1/products
+Content-Type: application/json
+
+{
+  "name": "Product Four",
+  "price": 49.99
+}
+
+###
+
+POST http://localhost:5000/v1/products
+Content-Type: application/json
+
+{
+  "name": "Product Five",
+  "price": 59.99
+}
+
+###
+
+POST http://localhost:5000/v1/products
+Content-Type: application/json
+
+{
+  "name": "Product Six",
+  "price": 69.99
+}
+
+###
+
+POST http://localhost:5000/v1/products
+Content-Type: application/json
+
+{
+  "name": "Product Seven",
+  "price": 79.99
+}
+
+###
+
+POST http://localhost:5000/v1/products
+Content-Type: application/json
+
+{
+  "name": "Product Eight",
+  "price": 89.99
+}
+
+### 2. Retrieve all products
+GET http://localhost:5000/v1/products
+
+### 3. Retrieve one product by ID (Assuming ID is 1)
+GET http://localhost:5000/v1/products/2
+
+### 4. Update a product by ID
+PUT http://localhost:5000/v1/products/2
+Content-Type: application/json
+
+{
+  "name": "Updated Product One",
+  "price": 24.99
+}
+
+### 5. Delete a product by ID
+DELETE http://localhost:5000/v1/products/2
+
+### 6. Verify deletion by retrieving all products again
+GET http://localhost:5000/v1/products
