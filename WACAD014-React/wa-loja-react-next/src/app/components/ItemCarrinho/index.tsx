@@ -1,12 +1,15 @@
+"use client";
 import React from "react";
 import {ItemCarrinho as ItemCarrinhoType} from "@/types/itemCarrinho";
 
 interface ItemCarrinhoProps {
   itemCarrinho: ItemCarrinhoType;
+  handleRemover: (id: string) => void;
 }
 
 export default function ItemCarrinho({
-  itemCarrinho
+  itemCarrinho,
+  handleRemover
 }: ItemCarrinhoProps) {
   const valorTotalProduto = (
     precoUnitario: number,
@@ -21,7 +24,7 @@ export default function ItemCarrinho({
 
       <td>R$ {valorTotalProduto(itemCarrinho.preco, 2).toFixed(2)}</td>
       <td>
-        <button className="btn btn-danger btn-sm">
+        <button onClick={() => handleRemover(itemCarrinho.id)} className="btn btn-danger btn-sm">
           Remover
         </button>
       </td>

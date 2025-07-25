@@ -6,10 +6,12 @@ import { ItemCarrinho as ItemCarrinhoType } from '@/types/itemCarrinho'
 
 interface ListagemCarrinhoProps {
   itensCarrinho: ItemCarrinhoType[];
+  handleRemoverItem: (id: string) => void;
 }
 
 export default function ListagemCarrinho({
-  itensCarrinho
+  itensCarrinho,
+  handleRemoverItem
 }: ListagemCarrinhoProps) {
 
   return (
@@ -31,10 +33,9 @@ export default function ListagemCarrinho({
             </thead>
             <tbody>
               {itensCarrinho.map((item) => (
-                <ItemCarrinho key={item.id} itemCarrinho={item}/>
+                <ItemCarrinho handleRemover={handleRemoverItem} key={item.id} itemCarrinho={item}/>
               ))}
             </tbody>
-
           </table>
         </div>
       </div>
