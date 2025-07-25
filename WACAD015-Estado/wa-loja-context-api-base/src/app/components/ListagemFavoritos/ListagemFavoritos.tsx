@@ -1,21 +1,11 @@
-import { calculaValorComPorcentagemDeDesconto } from "@/app/helpers";
 import ItemFavorito from "../ItemFavorito/ItemFavorito";
-import {FavoritoContext} from "@/app/context/FavoritoContext";
-import {useContext} from "react";
+import {useCalculateValorFavoritos, useFavoritosContext} from "@/app/provider/FavoritoProvider";
 
 export default function ListagemFavoritos() {
 
-  const { favoritos : produtosFavoritos, setFavoritos } = useContext(FavoritoContext);
+  const { favoritos : produtosFavoritos } = useFavoritosContext();
 
-  const valorTotalFavoritos = produtosFavoritos.reduce((acc, produto) => {
-    return (
-      acc +
-      calculaValorComPorcentagemDeDesconto(
-        Number(produto.preco),
-        produto.desconto
-      )
-    );
-  }, 0);
+  const valorTotalFavoritos = useCalculateValorFavoritos();
 
   return (
     <div className="card mb-4">
@@ -38,7 +28,6 @@ export default function ListagemFavoritos() {
                   <ItemFavorito
                     key={item.id}
                     itemFavorito={item}
-                    setFavoritos={setFavoritos}
                   />
                 ))}
               </tbody>

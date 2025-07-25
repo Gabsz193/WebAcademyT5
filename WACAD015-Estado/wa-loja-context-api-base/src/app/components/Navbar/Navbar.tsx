@@ -1,8 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import {AuthContext} from "@/app/context/AuthContext";
+import {useContext} from "react";
 
 export default function Navbar() {
+  const {email, logout} = useContext(AuthContext);
+
   return (
     <nav className="navbar navbar-expand-md bg-light border-bottom border-body sticky-top">
       <div className="container-fluid">
@@ -34,11 +38,24 @@ export default function Navbar() {
             </li>
           </ul>
 
-          <Link className="nav-link " href="/login">
-            <button type="button" className="btn btn-secondary">
-              Sair
-            </button>
-          </Link>
+          {email ?
+            (
+              <div className="d-flex align-items-center gap-3">
+                <span>{email}</span>
+                <div className="nav-link">
+                  <button className="btn btn-secondary" onClick={() => logout()}>
+                    Logout
+                  </button>
+                </div>
+              </div>
+            )
+            :
+            <Link className="nav-link " href="/login">
+              <button type="button" className="btn btn-secondary">
+                Sair
+              </button>
+            </Link>
+          }
         </div>
       </div>
     </nav>

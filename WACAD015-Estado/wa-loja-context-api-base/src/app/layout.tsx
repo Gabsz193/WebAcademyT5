@@ -4,8 +4,9 @@ import Navbar from "./components/Navbar/Navbar";
 import FavoritoProvider from "@/app/provider/FavoritoProvider";
 import React from "react";
 import {Metadata} from "next";
+import AuthProvider from "@/app/provider/AuthProvider";
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   title: 'Minha Loja',
   description: 'Minha loja online',
 };
@@ -18,11 +19,13 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body>
-        <FavoritoProvider>
-          <Navbar/>
-          {children}
-          <BootstrapClient/>
-        </FavoritoProvider>
+        <AuthProvider>
+          <FavoritoProvider>
+            <Navbar/>
+            {children}
+            <BootstrapClient/>
+          </FavoritoProvider>
+        </AuthProvider>
       </body>
     </html>
   );
